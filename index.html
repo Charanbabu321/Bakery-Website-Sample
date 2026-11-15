@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bakery — Freshly Baked With Love</title>
+<style>
+:root{
+--pink:#f66b91;
+--pink-dark:#e94f7e;
+--cream:#fff8f2;
+--ink:#48231f;
+--muted:#705c58;
+--white:#fff;
+}
+
+*{
+box-sizing:border-box
+}
+html{
+    scroll-behavior:smooth;
+}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--cream);color:var(--ink)}
+a{color:inherit;text-decoration:none}
+button{font:inherit}
+.topbar{height:74px;background:#f46d91;color:white;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(18px,5vw,70px);gap:20px}
+.brand{display:flex;align-items:center;gap:10px;font-family:Georgia,serif;font-size:27px;font-style:italic;font-weight:bold;white-space:nowrap}
+.brand-icon{font-size:30px}
+nav{display:flex;align-items:center;gap:clamp(12px,3vw,36px);font-size:14px}
+nav a{transition:opacity .2s}nav a:hover{opacity:.72}
+.cart{font-size:22px}
+.hero{display:grid;grid-template-columns:1fr 1.05fr;align-items:center;gap:26px;padding:clamp(30px,5vw,68px);background:linear-gradient(110deg,#fff9f6,#ffe9ec)}
+.hero-copy h1{font-family:Georgia,serif;font-weight:800;font-size:clamp(38px,5vw,68px);line-height:1.02;margin:0 0 14px;color:#4a201d}
+.hero-copy h1 span{display:block;color:#ef6890;margin-top:8px}
+.heart{color:#f16b91;font-size:.65em;vertical-align:middle}
+.hero-copy p{color:#4c4240;font-size:17px;line-height:1.55;margin:0 0 25px;max-width:360px}
+.btn{display:inline-block;background:var(--pink-dark);color:white;border:0;border-radius:30px;padding:13px 25px;font-weight:bold;box-shadow:0 5px 12px #e94f7e24;cursor:pointer;transition:transform .2s,background .2s}
+.btn:hover{transform:translateY(-2px);background:#d83f6d}
+.hero-image{width:100%;height:370px;object-fit:cover;border-radius:18px;box-shadow:0 12px 32px #6d31251b}
+.section{padding:48px clamp(18px,4vw,58px) 55px;text-align:center}
+.section h2{font-family:Georgia,serif;font-size:clamp(32px,4vw,45px);margin:0 0 7px}
+.section-sub{margin:0 0 28px;color:var(--muted)}
+.menu-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;text-align:left;max-width:1120px;margin:auto}
+.product{background:white;border:1px solid #f2e5df;border-radius:12px;overflow:hidden;box-shadow:0 4px 14px #5933280c}
+.product img{width:100%;height:175px;object-fit:cover;display:block}
+.product-info{padding:15px}
+.product h3{margin:0 0 7px;font-size:18px}
+.product p{margin:0 0 12px;color:var(--muted);font-size:14px;line-height:1.45;min-height:40px}
+.price{font-weight:bold;color:#a33c38;font-size:19px;margin-bottom:12px}
+.add{width:100%;border:0;border-radius:25px;background:#f47b9b;color:#fff;padding:10px;cursor:pointer}
+.add:hover{background:#e84f7d}
+.about{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:30px;background:#ffe5eb;padding:clamp(28px,5vw,60px)}
+.about h2{text-align:left;margin-bottom:14px}
+.about p{line-height:1.7;color:#5c4948;max-width:540px}
+.about img{width:100%;height:290px;object-fit:cover;border-radius:18px}
+footer{background:#4a2027;color:white;padding:28px clamp(18px,4vw,58px);display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.footer-item{display:flex;gap:12px;align-items:flex-start;border-right:1px solid #ffffff45;padding-right:12px}
+.footer-icon{font-size:22px;color:#ff7da2}
+.footer-item strong{display:block;margin-bottom:8px}
+.footer-item small{color:#f6dfe5;line-height:1.6}
+.social{display:flex;gap:10px;font-weight:bold}
+.notice{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#48231f;color:#fff;padding:12px 20px;border-radius:30px;box-shadow:0 8px 25px #0002;display:none;z-index:5}
+@media(max-width:720px){
+ .topbar{height:auto;min-height:68px;flex-wrap:wrap;padding:16px 18px}
+ nav{width:100%;justify-content:space-between;gap:8px;font-size:13px}
+ .hero{grid-template-columns:1fr;padding:30px 20px;gap:22px}
+ .hero-image{height:260px;grid-row:1}
+ .hero-copy h1{font-size:44px}
+ .menu-grid{grid-template-columns:1fr;max-width:430px}
+ .product img{height:220px}
+ .about{grid-template-columns:1fr}
+ .about img{height:240px;grid-row:1}
+ footer{grid-template-columns:1fr 1fr}
+ .footer-item:nth-child(2){border-right:0}
+}
+@media(min-width:721px) and (max-width:950px){
+ .hero{padding:32px;gap:20px}.hero-image{height:300px}
+ .menu-grid{gap:12px}.product img{height:140px}
+ footer{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+    <!--Header-->
+<header class="topbar" id="home">
+  <a class="brand" href="#home"><span class="brand-icon">🧁</span> Bakery</a>
+  <nav aria-label="Main navigation">
+    <a href="#home">Home</a><a href="#menu">Menu</a><a href="#about">About</a><a href="#contact">Contact</a><a class="cart" href="#menu" aria-label="Shopping cart">🛒</a>
+  </nav>
+</header>
+<!--header End-->
+
+<!--main-->
+<main>
+  <section class="hero">
+    <div class="hero-copy">
+      <h1>Freshly Baked <span>With Love <b class="heart">♡</b></span></h1>
+      <p>Delicious cakes, pastries and more.</p>
+      <a class="btn" href="#menu">Order Now&nbsp; →</a>
+    </div>
+    <img class="hero-image" src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=1200&q=85" alt="Beautiful cake topped with berries">
+  </section>
+
+  <section class="section" id="menu">
+    <h2>Our Menu</h2>
+    <p class="section-sub">Freshly made. Always delicious.</p>
+    <div class="menu-grid">
+      <article class="product">
+        <img src="https://images.unsplash.com/photo-1486427944299-d1955d23e34d?auto=format&fit=crop&w=800&q=85" alt="Pink frosted cupcakes">
+        <div class="product-info"><h3>Cupcakes</h3><p>Soft, fluffy and full of flavor.</p><div class="price">$3.50</div><button class="add" data-item="Cupcakes">Add to Cart</button></div>
+      </article>
+      <article class="product">
+        <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=800&q=85" alt="Golden flaky croissants">
+        <div class="product-info"><h3>Croissants</h3><p>Buttery, flaky and freshly baked.</p><div class="price">$2.50</div><button class="add" data-item="Croissants">Add to Cart</button></div>
+      </article>
+      <article class="product">
+        <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=800&q=85" alt="Rich chocolate cake">
+        <div class="product-info"><h3>Chocolate Cake</h3><p>Rich, moist and delicious.</p><div class="price">$4.50</div><button class="add" data-item="Chocolate Cake">Add to Cart</button></div>
+      </article>
+
+      <!-- you can add item here -->
+
+    </div>
+  </section>
+
+  <section class="about" id="about">
+    <div>
+      <h2>About Us</h2>
+      <p>We're a small bakery with a big passion for delicious treats. Our goal is to bring happiness to your day with fresh, homemade goodies.</p>
+      <a class="btn" href="#contact">Learn More&nbsp; →</a>
+    </div>
+    <img src="https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1100&q=85" alt="Baker preparing fresh treats">
+  </section>
+</main>
+<!-- main End -->
+ <!-- footer -->
+
+<footer id="contact">
+  <div class="footer-item"><span class="footer-icon">📍</span><div><strong>Visit Us</strong><small>Thamel Bakery Lane<br>Kathmandu,Nepal</small></div></div>
+  <div class="footer-item"><span class="footer-icon">☎</span><div><strong>Call Us</strong><small>+977-9865321547</small></div></div>
+  <div class="footer-item"><span class="footer-icon">✉</span><div><strong>Email Us</strong><small>hello@bakery321.com</small></div></div>
+  <div class="footer-item"><span class="footer-icon">♡</span><div><strong>Follow Us</strong><div class="social"><span>f</span><span>◎</span><span>♥</span><span>▶</span></div></div></div>
+  
+<p>&copy; 2026 All Rights Reserved | Designed by <strong>@Lal Chandra Rawat</strong></p>
+
+</footer>
+<!-- footer End -->
+<div class="notice" id="notice" role="status"></div>
+
+<!-- Script file  -->
+<script>
+const notice = document.getElementById('notice');
+let noticeTimer;
+document.querySelectorAll('.add').forEach(button => {
+  button.addEventListener('click', () => {
+    notice.textContent = button.dataset.item + ' added to cart!';
+    notice.style.display = 'block';
+    clearTimeout(noticeTimer);
+    noticeTimer = setTimeout(() => notice.style.display = 'none', 2200);
+  });
+});
+</script>
+<!-- Script End -->
+</body>
+</html>
